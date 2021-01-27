@@ -1,4 +1,6 @@
 import React from "react";
+import format from "date-fns/format";
+import parseISO from "date-fns/parseISO";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -8,13 +10,14 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import Avatar from "@material-ui/core/Avatar";
+import Typography from "@material-ui/core/Typography";
+import { CopyToClipboardText } from "../../../components/CopyToClipboardText";
 
 const useStyles = makeStyles({
   table: {},
 });
 
 export const ContactsTable = ({ data }) => {
-  console.log(data);
   const classes = useStyles();
   return (
     <TableContainer component={Paper}>
@@ -39,10 +42,17 @@ export const ContactsTable = ({ data }) => {
               <TableCell>
                 {contact.name.title} {contact.name.first} {contact.name.last}
               </TableCell>
-              <TableCell>3</TableCell>
-              <TableCell>4</TableCell>
-              <TableCell>5</TableCell>
-              <TableCell>6</TableCell>
+              <TableCell>
+                <Typography>
+                  {format(parseISO(contact.dob.date), "MM/dd/yyyy")}
+                </Typography>
+                <Typography>{contact.dob.age} years</Typography>
+              </TableCell>
+              <TableCell>
+                <CopyToClipboardText text={contact.email} />
+              </TableCell>
+              <TableCell>{contact.phone}</TableCell>
+              <TableCell>{contact.location.city}</TableCell>
               <TableCell>7</TableCell>
             </TableRow>
           ))}
