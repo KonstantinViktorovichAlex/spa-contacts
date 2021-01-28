@@ -12,6 +12,7 @@ import Paper from "@material-ui/core/Paper";
 import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
 import { CopyToClipboardText } from "../../../components/CopyToClipboardText";
+import { NATIONALITIES_HUMAN_NAME } from "../../../constants/nationality";
 
 const useStyles = makeStyles({
   table: {},
@@ -19,6 +20,7 @@ const useStyles = makeStyles({
 
 export const ContactsTable = ({ data }) => {
   const classes = useStyles();
+  console.log(data);
   return (
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="contacts table">
@@ -54,8 +56,11 @@ export const ContactsTable = ({ data }) => {
               <TableCell>
                 <CopyToClipboardText text={contact.phone} />
               </TableCell>
-              <TableCell>{contact.location.city}</TableCell>
-              <TableCell>7</TableCell>
+              <TableCell>
+                <Typography>{contact.location.city}</Typography>
+                <Typography>{contact.location.country}</Typography>
+              </TableCell>
+              <TableCell>{NATIONALITIES_HUMAN_NAME[contact.nat]}</TableCell>
             </TableRow>
           ))}
         </TableBody>
